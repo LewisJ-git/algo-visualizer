@@ -1,0 +1,4 @@
+<li>Searching</li>
+<li>Sorting</li>
+<li>Graphs</li>
+<li>WIP</li>
