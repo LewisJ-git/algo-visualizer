@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import NavigationBarInner from './NavigationBarInner'
 import NavigationItem from './NavigationItem'
 import ScrollAnimation from 'react-animate-on-scroll';
+import {Link} from "react-router-dom";
 
 const NavigationBar = () => {
     const [open, setOpen] = useState(false);
@@ -11,7 +12,8 @@ const NavigationBar = () => {
     function pushChildren (childrenArray) {
         let content = [];
         for (let x = 0; x < childrenArray.length; x++) {
-            content.push(<a href='#' className='btn'>⬩ {childrenArray[x]} ⬩</a>);
+            let setPath = '/' + childrenArray[x].toLowerCase();
+            content.push(<Link to={setPath} className='btn'>⬩ {childrenArray[x]} ⬩</Link>);
         }
         return content;
     }
@@ -44,10 +46,11 @@ const NavigationBar = () => {
                 </ScrollAnimation>
                 <ScrollAnimation offset={0} animateIn='fadeIn' delay={650}>
                 <div onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
-                    <NavigationItem title='WIP' id={4}>
+                    <NavigationItem title='Home' id={4}>
                         {/* dropdown goes here */}
-
-                    </NavigationItem>
+                        <Link to="/" className='btn'>⬩ Home ⬩</Link>
+                    </NavigationItem> 
+                    
                 </div>
                 </ScrollAnimation>
             </NavigationBarInner>
