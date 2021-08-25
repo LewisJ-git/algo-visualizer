@@ -18,7 +18,7 @@ function App() {
 
         <Switch>
         
-          <Route path='' exact render={() =>
+          <Route path='/' exact render={() =>
             <Fragment>
               <Header />
               <HeaderDeco />
