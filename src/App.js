@@ -12,7 +12,7 @@ function App() {
     <div className="App">
       <MainBackground />
       
-      <Router>
+      <Router basename={`${process.env.PUBLIC_URL}`}>
 
         <NavigationBar />
 
