@@ -12,7 +12,7 @@ function App() {
     <div className="App">
       <MainBackground />
       
-      <Router basename={`${process.env.PUBLIC_URL}`}>
+      <Router basename='/algo-visualizer'>
 
         <NavigationBar />
 
