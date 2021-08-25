@@ -4,7 +4,7 @@ import NavigationBar from './components/NavigationBar';
 import Credits from './components/Credits';
 import MainBackground from './components/MainBackground';
 import LinearSearch from './components/LinearSearch';
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import React, { Fragment } from "react";
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
 
         <Switch>
         
-          <Route path='/' exact render={() =>
+          <Route path='' exact render={() =>
             <Fragment>
               <Header />
               <HeaderDeco />
