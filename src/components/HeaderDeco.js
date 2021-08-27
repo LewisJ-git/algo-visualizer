@@ -1,19 +1,15 @@
 import React from 'react'
+import { ReactComponent as Headersvg3 } from '../svg/headersvg3.svg';
+import { ReactComponent as Headersvg4 } from '../svg/headersvg4.svg';
 
 const HeaderDeco = () => {
     return (
         <div className = 'HeaderDeco'> 
             <div className='header-svg-2'>
-                <svg width="100" height="100">
-                    <path stroke="#e0e0e0" strokeWidth="4" d="M45 4L4 45"></path>
-                    <path stroke="#e0e0e0" strokeWidth="4" d="M4 45L45 84"></path>
-                </svg>
+                <Headersvg3 />
             </div>
             <div className='header-svg-3'>
-                <svg width="100" height="100">
-                    <path stroke="#e0e0e0" strokeWidth="4" d="M45 4L84 45"></path>
-                    <path stroke="#e0e0e0" strokeWidth="4" d="M84 45L45 84"></path>
-                </svg>
+                <Headersvg4 />
             </div>
         </div>
     )
