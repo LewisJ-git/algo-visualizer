@@ -5,10 +5,10 @@ const Credits = () => {
     return (
         <div className='Credits'>
             <div className='link-wrap'>
-                <a href='https://github.com/LewisJ-git/algo-visualizer' className='git-svg' target="_blank">
+                <a href='https://github.com/LewisJ-git/algo-visualizer' className='git-svg' target="_blank" rel="noreferrer">
                     <GitIcon />
                 </a>
-                <a href='https://github.com/LewisJ-git/algo-visualizer' target="_blank">
+                <a href='https://github.com/LewisJ-git/algo-visualizer' target="_blank" rel="noreferrer">
                     Fork me on GitHub!
                 </a>
             </div>
