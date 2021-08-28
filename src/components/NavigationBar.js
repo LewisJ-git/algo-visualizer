@@ -6,14 +6,14 @@ import {Link} from "react-router-dom";
 
 const NavigationBar = () => {
     const [open, setOpen] = useState(false);
-    const searchChildrends = ['Linear', 'Binary', 'Ternary'];
-    const sortChildrends = ['Bubble', 'Selection', 'Insertion', 'Merge', 'Quick', 'Counting'];
+    const searchChildrends = ['Linear', 'Binary'];
+    const sortChildrends = ['Bubble', 'Selection', 'Insertion'];
     const graphChildrends = ['Breadth First Search', 'Depth First Search', 'Minimum Spanning Tree', 'Shortest Path'];
     function pushChildren (childrenArray) {
         let content = [];
         for (let x = 0; x < childrenArray.length; x++) {
             let setPath = '/' + childrenArray[x].toLowerCase();
-            content.push(<Link to={setPath} className='btn'>⬩ {childrenArray[x]} ⬩</Link>);
+            content.push(<Link to={setPath} className='btn'>{childrenArray[x]}</Link>);
         }
         return content;
     }
@@ -46,9 +46,9 @@ const NavigationBar = () => {
                 </ScrollAnimation>
                 <ScrollAnimation offset={0} animateIn='fadeIn' delay={650}>
                 <div onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
-                    <NavigationItem title='Home' id={4}>
+                    <NavigationItem title='Main' id={4}>
                         {/* dropdown goes here */}
-                        <Link to="/" className='btn'>⬩ Home ⬩</Link>
+                        <Link to="/" className='btn'>Home</Link>
                     </NavigationItem> 
                     
                 </div>
