@@ -1,3 +1,5 @@
+@import "./partials/linearsearch";
+
 $light-color: rgb(224, 224, 224);
 $dark-color: rgb(22, 22, 22);
 
@@ -22,6 +24,22 @@ body {
     scroll-behavior: smooth;
     letter-spacing: 0.15rem;
     line-height: 1.8rem;
+}
+
+button, input, select, textarea {
+    font-family: inherit;
+    font-size: 0.8rem;
+    color: $light-color;
+    background-color: $dark-color;
+    letter-spacing: 0.05rem;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
 }
 
 @keyframes animStar {
@@ -92,11 +110,6 @@ $shadows-big:    multiple-box-shadow(100);
     }
 }
 
-canvas { 
-    display: block; 
-    vertical-align: bottom; 
-}
-
 a, a:link {
     text-decoration: none;
     color: $light-color;
@@ -148,7 +161,6 @@ code {
         justify-content: center;
         z-index: -1;
         #header-svg-1 {
-            animation: 1.9s cubic-bezier(0, 0.7, 0.58, 1.0) 0s 1 rotate;
             z-index: -1;
         }
         #header-svg-1-a {
@@ -282,15 +294,11 @@ code {
             .hitBox {
                 transition: 2s;
                 p {
-                    font-size: 1.1rem;
+                    font-size: 0.9rem;
                     letter-spacing: 0.054rem;
                     text-align: center;                    
                     z-index: 4;
-                    padding: 0.3rem ;
-                }
-                p:hover {
-                    opacity: 0.5;
-                    transition: 0.35s;
+                    padding: 0.1rem 0.3rem;
                 }
                 .dropdown-children {    
                     height: 0;
@@ -300,54 +308,29 @@ code {
                     z-index: 4;
                     a {
                         font-size: 0.8rem;
-                        letter-spacing: 0.02rem;
+                        letter-spacing: 0.015rem;
                         margin: 0.3rem 0.3rem;
                         text-align: center;
                         padding-left: 0.3rem;
                         padding-right: 0.3rem;
                     }
                     a:hover {
-                        opacity: 0.5;
-                        transition: 0.7s;
+                        transition: 0.4s;
                     }
-                    .btn {
-                        width: auto;
-                        height: 50px;
-                        border: 1px solid $light-color;
-                        cursor: pointer;
-                        -webkit-tap-highlight-color: transparent;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        position: relative;
-                        z-index: 0;
-                        transition: 0.5s;
-                    }
-                      .btn::before, .btn::after {
-                        position: absolute;
-                        background: $dark-color;
-                        z-index: -1;
-                        transition: 0.5s;
+                    a::before {
                         content: '';
+                        border-left: 2px solid $light-color;
+                        border-right: 2px solid $light-color;
+                        position: absolute;
+                        opacity: 0;
+                        transition: all 0.3s;
+                        width: inherit;
+                        height: inherit;
                     }
-                    .btn::before {
-                        height: 50px;
-                        width: 90px;
-                    }
-                    .btn::after {
-                        width: 150px;
-                        height: 30px;
-                    }
-                    .btn:hover::before {
-                        width: 0px;
-                        background: $dark-color;
-                    }
-                    .btn:hover::after {
-                        height: 0px;
-                        background: $dark-color;
-                    }  
-                    .btn:hover {
-                        background: $dark-color;
+                    a:hover::before {
+                        opacity: 1;
+                        transition: 0.2s;
+                        transform: scale(0.1, 1);
                     }
                 }
             }
