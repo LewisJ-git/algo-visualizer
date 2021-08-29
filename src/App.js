@@ -4,7 +4,7 @@ import NavigationBar from './components/NavigationBar';
 import Credits from './components/Credits';
 import MainBackground from './components/MainBackground';
 import LinearSearch from './components/LinearSearch';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import React, { Fragment } from "react";
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
     <div className="App">
       <MainBackground />
       
-      <Router basename='/algo-visualizer'>
+      <Router basename='/'>
 
         <NavigationBar />
 
