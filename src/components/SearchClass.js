@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react'
+import React, { Component } from 'react'
 import ScrollAnimation from 'react-animate-on-scroll';
 import PropTypes from 'prop-types';
 import { BarChart, Bar, ResponsiveContainer, Cell, LabelList } from 'recharts';
@@ -37,7 +37,7 @@ class SearchClass extends Component {
             alert('Please enter a number or an array of numbers separated by spacebar or commas')
         } 
         else {
-            console.log(this.state.arrayInput)
+            //console.log(this.state.arrayInput)
             let num = ''
             let str = this.state.arrayInput
             let x = []
@@ -49,7 +49,7 @@ class SearchClass extends Component {
                 }
                 else {
                     if (num !== '') {
-                        let indexNumToString = this.state.array.length > 0 ? `${index}` : `${this.state.array.length}`
+                        let indexNumToString = this.state.array.length > 0 ? `${this.state.array.length}` : `${index}`
                         x.push({
                             name: indexNumToString.toString(),
                             uv: num
@@ -63,6 +63,10 @@ class SearchClass extends Component {
                 name: `${index}`,
                 uv: num
             })
+            //sort array if search type is binary
+            if (this.props.searchType === 'binary') {
+                x.sort((a, b) => (a.uv > b.uv) ? 1 : -1)
+            }
             this.insertInputToArray(x)
         }
         this.insertNewTerminalString(`input inserted`)
@@ -207,7 +211,17 @@ class SearchClass extends Component {
         event.preventDefault();
         let tempRandomObj = []
         for (let i = 0; i < this.state.randomInput; i++) {
-            let x = Math.floor(Math.random(this.state.randomInput) * this.state.randomInput + 1) 
+            let x = 0
+            switch(this.props.searchType) {
+                case 'linear':
+                    x = Math.floor(Math.random(this.state.randomInput) * this.state.randomInput + 1) 
+                    break
+                case 'binary':
+                    x = i
+                    break
+                default:
+                    x = Math.floor(Math.random(this.state.randomInput) * this.state.randomInput + 1) 
+            }
             tempRandomObj.push({
                 name: `${i}`,
                 uv: x
