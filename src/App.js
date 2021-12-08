@@ -3,7 +3,7 @@ import HeaderDeco from './components/HeaderDeco';
 import NavigationBar from './components/NavigationBar';
 import Credits from './components/Credits';
 import MainBackground from './components/MainBackground';
-import LinearSearch from './components/LinearSearch';
+import SearchClass from './components/SearchClass';
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import React, { Fragment } from "react";
 
@@ -26,9 +26,15 @@ function App() {
             </Fragment>
           } />
 
-          <Route path='/linear' exact render={() =>
+          <Route path='/linear' exact key="linearSearch" render={() =>
             <Fragment>
-              <LinearSearch />
+              <SearchClass id='LinearSearch' searchType='linear' />
+            </Fragment>
+          } />
+
+          <Route path='/binary' exact key="binarySearch" render={() =>
+            <Fragment>
+              <SearchClass id='BinarySearch' searchType='binary' />
             </Fragment>
           } />
           

@@ -13,7 +13,7 @@ const NavigationBar = () => {
         let content = [];
         for (let x = 0; x < childrenArray.length; x++) {
             let setPath = '/' + childrenArray[x].toLowerCase();
-            content.push(<Link to={setPath} className='btn'>{childrenArray[x]}</Link>);
+            content.push(<Link key={childrenArray[x]} to={setPath} className='btn' replace >{childrenArray[x]}</Link>);
         }
         return content;
     }

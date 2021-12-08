@@ -1,4 +1,5 @@
 @import "./partials/linearsearch";
+@import "./partials/binarysearch";
 
 $light-color: rgb(224, 224, 224);
 $dark-color: rgb(22, 22, 22);
@@ -32,6 +33,11 @@ button, input, select, textarea {
     color: $light-color;
     background-color: $dark-color;
     letter-spacing: 0.05rem;
+}
+
+.btn:hover {
+    filter: brightness(50%);
+    transition: 0.4s;
 }
 
 input[type=number]::-webkit-inner-spin-button,
@@ -388,4 +394,115 @@ code {
         text-align: center;
     }
 }
+
+.Search {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    .displayArray {
+        width: 60%;
+        height: 70%;
+        position: absolute;
+        top: 50%;
+        left: 20px;
+        transform: translate(0, -50%);
+        text {
+            color: $light-color;
+        }
+    }
+    .terminal {
+        width: 35%;
+        height: 70%;
+        position: absolute;
+        top: 50%;
+        right: 20px;
+        transform: translate(0, -50%);
+        font-family: monospace;
+        font-weight: 100;
+        font-size: 0.8rem;
+        letter-spacing: 0.03rem;
+        line-height: 0.9rem;
+        padding: 10px;
+        overflow: scroll;
+        z-index: 12;
+        opacity: 1;
+        background-color: #000;
+        border: 3px solid #fff;
+        animation: 1.9s cubic-bezier(0, 0.7, 0.58, 1.0) 0s 1 slideUpFade;
+        .blinkingCursor {
+            width: 8px;
+            height: 15px;
+            background-color: $light-color;
+            display: inline-block;
+            vertical-align: middle;
+            animation: 1s cursorBlink step-end infinite;
+        }
+        #terminal-clear-message {
+            color:rgba(224, 224, 224, 0.685);
+        }
+    }
+    .inputwrapper {
+        z-index: 7;
+        width: 100%;
+        height: auto;
+        position: fixed;
+        bottom: 20px;
+        display: flex;
+        padding: 0 50px;
+        justify-content: space-between;
+        .numberBoxSearch,
+        .randomGenerateInput {
+            input[type=number] {
+                color: rgb(224, 224, 224);
+                padding: 8px 8px;
+                margin: auto auto;
+                border: 3px solid rgb(255, 255, 255);
+                letter-spacing: 0px;
+                width: 20vw;  
+            }
+        } 
+        .textBoxSearch {
+            flex-grow: 0;
+            input[type=text] {
+                color: rgb(224, 224, 224);
+                padding: 8px 8px;
+                margin: auto auto;
+                border: 3px solid rgb(255, 255, 255);
+                letter-spacing: 0px;
+                width: 25vw;
+            }
+        }
+        button {
+            background-color: $dark-color;
+            border: none;
+            border: 3px solid rgb(255, 255, 255);
+            width: 15vw;
+            font-size: 0.8rem;
+            animation: 1.9s cubic-bezier(0, 0.7, 0.58, 1.0) 0s 1 slideUp;
+            &:hover {
+                filter: brightness(80%);
+            }
+            &:active {
+                filter: blur(2px);
+            }
+        }
+    }
+}
+
+@keyframes cursorBlink {
+    from, to {
+        background-color: transparent;
+    }
+    50% {
+        background-color: $light-color;
+    }
+}
+
+@keyframes slideUpFade {
+    0% {
+        opacity: 0;
+        transform: translate(200px, -50%);
+    }
+}
+
 
