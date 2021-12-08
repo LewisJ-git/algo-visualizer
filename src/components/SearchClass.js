@@ -149,7 +149,10 @@ class SearchClass extends Component {
     searchAlgorithm() {
         this.searchIndexInitialize()
         var isFound = false
-        let multiplier = Math.floor(9 / Math.sqrt(this.state.array.length)) * 1000 //1000 = 1 sec
+        //y = 1 / 1.1 ^ x
+        let multiplier = Math.floor(4 / Math.pow(1.1, this.state.array.length)* 1000)  //1000 = 1 sec
+        //y = 1 / sqrt(x)
+        //let multiplier = Math.floor(9 / Math.sqrt(this.state.array.length)) * 1000 //1000 = 1 sec
         if (this.props.searchType === 'linear') {
             var index = 0
             var intervalLinear = setInterval(() => {
