@@ -32,9 +32,10 @@ class SearchClass extends Component {
     }
 
     handleArraySubmission = (event) => {
-        event.preventDefault();
+        event.preventDefault()
+        this.resetSearchIndex()
         if (this.state.arrayInput.search(/([^0-9, ])/g) !== -1) {
-            alert('Please enter a number or an array of numbers separated by spacebar or commas')
+            this.insertNewTerminalString('please enter a number or an array of numbers separated by spacebar or commas')
         } 
         else {
             //console.log(this.state.arrayInput)
@@ -106,6 +107,7 @@ class SearchClass extends Component {
 
     handleSearchSubmission = (event) => {
         event.preventDefault();
+        this.resetSearchIndex()
         if (this.state.array.length > 0) {
             this.insertNewTerminalString(`begin searching for ${this.state.searchInput}`)
             this.setState ({
@@ -116,7 +118,7 @@ class SearchClass extends Component {
             this.searchAlgorithm()
         }
         else {
-            this.insertNewTerminalString('empty array')
+            this.insertNewTerminalString('ERROR: empty array')
             this.setState ({
                 searchInput: ''
             })
@@ -152,45 +154,79 @@ class SearchClass extends Component {
 
     searchAlgorithm() {
         this.searchIndexInitialize()
-        var isFound = false
-        //y = 1 / 1.1 ^ x
-        let multiplier = Math.floor(4 / Math.pow(1.1, this.state.array.length)* 1000)  //1000 = 1 sec
-        //y = 1 / sqrt(x)
-        //let multiplier = Math.floor(9 / Math.sqrt(this.state.array.length)) * 1000 //1000 = 1 sec
+        
         if (this.props.searchType === 'linear') {
-            var index = 0
-            var intervalLinear = setInterval(() => {
-                if (isFound) {
-                    this.insertNewTerminalString('search found')
-                    this.resetSearchIndex()
-                    clearInterval(intervalLinear)   //clear interval when element found or index reach the end
-                    return
-                }
-                if (index >= this.state.array.length) {
-                    this.insertNewTerminalString('search not found')
-                    this.resetSearchIndex()
-                    clearInterval(intervalLinear)   //clear interval when element found or index reach the end
-                    return
-                }
-
-                //highlight graph bar
-                this.changeSearchIndex(index.toString())
-
-                //print terminal to check
-                this.insertNewTerminalString(`checking if ${this.state.array[index].uv} = ${this.state.search}`)
-                    
-                //if/else statement
-                    //break
-                isFound = this.compareTwoNums(this.state.array[index].uv, this.state.search)
-
-                index++ //go to next index
-            }, multiplier)
+            //y = 1 / 1.1 ^ x
+            let multiplier = Math.floor(4 / Math.pow(1.1, this.state.array.length)* 1000)  //1000 = 1 sec
+            this.doLinearSearch(multiplier)
         }
-        // if (this.props.searchType === 'binary') {
+        if (this.props.searchType === 'binary') {
+            //y = 1 / sqrt(x)
+            let multiplier = Math.floor(9 / Math.sqrt(this.state.array.length)) * 1000 //1000 = 1 sec
+            this.doBinarySearch(0, this.state.array.length, multiplier)
+        }
+    }
 
-        // }
-        //clear everything
-        //this.resetSearchIndex()
+    doLinearSearch(delay) {
+        var isFound = false
+        var index = 0
+        var intervalLinear = setInterval(() => {
+            if (isFound) {
+                this.insertNewTerminalString('search found')
+                clearInterval(intervalLinear)   //clear interval when element found or index reach the end
+                return
+            }
+            if (index >= this.state.array.length) {
+                this.insertNewTerminalString('search not found')
+                this.resetSearchIndex()
+                clearInterval(intervalLinear)   //clear interval when element found or index reach the end
+                return
+            }
+
+            //highlight graph bar
+            this.changeSearchIndex(index.toString())
+
+            //print terminal to check
+            this.insertNewTerminalString(`checking if ${this.state.array[index].uv} = ${this.state.search}`)
+                
+            //if search found
+            isFound = this.compareTwoNums(this.state.array[index].uv, this.state.search)
+
+            index++ //go to next index
+        }, delay)
+    }
+
+    doBinarySearch(left, right, delay) {
+        setTimeout(() => {
+            if (right > 0) {
+                //find middle
+                let mid = left + Math.floor((right - left) / 2);
+                this.insertNewTerminalString(`the middle index is ${mid}`)
+                this.changeSearchIndex(mid) //highlight bar color of mid
+    
+                this.insertNewTerminalString(`checking if ${this.state.array[mid].uv} = ${this.state.search}`)
+
+                if (this.compareTwoNums(this.state.array[mid].uv, this.state.search)) { // If the element is present at the middle itself
+                    this.insertNewTerminalString('TRUE')
+                    this.insertNewTerminalString(`search found`)
+                    return
+                }
+
+                if (this.state.array[mid].uv > this.state.search) { // If element is smaller than mid, then it can only be present in left subarray
+                    this.insertNewTerminalString('FALSE')
+                    this.insertNewTerminalString(`initiate binary-search on the lower half`)
+                    return this.doBinarySearch(left, mid - 1, delay)
+                }
+                else { // Else the element can only be present in right subarray
+                    this.insertNewTerminalString('FALSE')
+                    this.insertNewTerminalString(`initiate binary-search on the upper half`)
+                    return this.doBinarySearch(mid + 1, right, delay)
+                }
+            }
+            this.insertNewTerminalString('search not found')
+            this.resetSearchIndex()
+            return
+        }, delay)//delay
     }
 
     submitClear = () => {
@@ -203,29 +239,24 @@ class SearchClass extends Component {
             this.insertNewTerminalString(`array cleared`)
         }
         else {
-            this.insertNewTerminalString(`there's nothing to clear`)
+            this.insertNewTerminalString(`ERROR: there's nothing to clear`)
         }
     }
 
     handleRandomSubmission = (event) => {
-        event.preventDefault();
+        event.preventDefault()
+        this.resetSearchIndex()
         let tempRandomObj = []
         for (let i = 0; i < this.state.randomInput; i++) {
-            let x = 0
-            switch(this.props.searchType) {
-                case 'linear':
-                    x = Math.floor(Math.random(this.state.randomInput) * this.state.randomInput + 1) 
-                    break
-                case 'binary':
-                    x = i
-                    break
-                default:
-                    x = Math.floor(Math.random(this.state.randomInput) * this.state.randomInput + 1) 
-            }
+            let x = Math.floor(Math.random() * (this.state.randomInput * 2))
             tempRandomObj.push({
                 name: `${i}`,
                 uv: x
             })
+        }
+        //sort array if search type is binary
+        if (this.props.searchType === 'binary') {
+            tempRandomObj.sort((a, b) => (a.uv > b.uv) ? 1 : -1)
         }
         this.insertRandomArray(tempRandomObj)
         this.insertNewTerminalString(`generated a random array of ${this.state.randomInput} elements.`)
