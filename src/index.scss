@@ -352,11 +352,8 @@ code {
     top: 0%;
     left: 0%;
     background: linear-gradient(90deg, rgba(22,22,22,0.92) 0%, rgba(22,22,22,0.92) 100%);
-    opacity: 0;
-    transition: opacity ease 0.70s;
-}
-.show {
     opacity: 1;
+    animation: 0.7s ease 0s 1 fadein;
 }
 
 .rotate-45 {

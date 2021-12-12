@@ -54,7 +54,9 @@ const NavigationBar = () => {
                 </div>
                 </ScrollAnimation>
             </NavigationBarInner>
-            <div className={open ? 'dark-overlay show' : 'dark-overlay'}></div>
+            {open &&
+                <div className='dark-overlay'></div>
+            }
         </div>
     )
 }
