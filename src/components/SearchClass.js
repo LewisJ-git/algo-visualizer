@@ -152,9 +152,7 @@ class SearchClass extends Component {
         })
     }
 
-    searchAlgorithm() {
-        this.searchIndexInitialize()
-        
+    searchAlgorithm() {        
         if (this.props.searchType === 'linear') {
             //y = 1 / 1.1 ^ x
             let multiplier = Math.floor(4 / Math.pow(1.1, this.state.array.length)* 1000)  //1000 = 1 sec
@@ -198,7 +196,7 @@ class SearchClass extends Component {
 
     doBinarySearch(left, right, delay) {
         setTimeout(() => {
-            if (right > 0) {
+            if (right > 0 && left <= right) {
                 //find middle
                 let mid = left + Math.floor((right - left) / 2);
                 this.insertNewTerminalString(`the middle index is ${mid}`)
@@ -213,12 +211,10 @@ class SearchClass extends Component {
                 }
 
                 if (this.state.array[mid].uv > this.state.search) { // If element is smaller than mid, then it can only be present in left subarray
-                    this.insertNewTerminalString('FALSE')
                     this.insertNewTerminalString(`initiate binary-search on the lower half`)
                     return this.doBinarySearch(left, mid - 1, delay)
                 }
                 else { // Else the element can only be present in right subarray
-                    this.insertNewTerminalString('FALSE')
                     this.insertNewTerminalString(`initiate binary-search on the upper half`)
                     return this.doBinarySearch(mid + 1, right, delay)
                 }
