@@ -247,11 +247,21 @@ class SearchClass extends Component {
         event.preventDefault()
         this.resetSearchIndex()
         let tempRandomObj = []
+
+        //generate a pool of unique random numbers
+        var tempRandomPool = []
+        tempRandomPool.push(Math.floor(Math.random() * (this.state.randomInput * 2)) + 1)
+        while (tempRandomPool.length < this.state.randomInput) {
+            let x = Math.floor(Math.random() * (this.state.randomInput * 2)) + 1
+            if (tempRandomPool.indexOf(x) === -1) {
+                tempRandomPool.push(x)
+            }
+        }
+
         for (let i = 0; i < this.state.randomInput; i++) {
-            let x = Math.floor(Math.random() * (this.state.randomInput * 2))
             tempRandomObj.push({
                 name: `${i}`,
-                uv: x
+                uv: tempRandomPool[i]
             })
         }
         //sort array if search type is binary
