@@ -3,7 +3,6 @@ import ScrollAnimation from 'react-animate-on-scroll';
 import PropTypes from 'prop-types';
 import { BarChart, Bar, ResponsiveContainer, Cell, LabelList } from 'recharts';
 
-
 class SearchClass extends Component {
     constructor(props) {
         super(props)
@@ -205,7 +204,6 @@ class SearchClass extends Component {
                 this.insertNewTerminalString(`checking if ${this.state.array[mid].uv} = ${this.state.search}`)
 
                 if (this.compareTwoNums(this.state.array[mid].uv, this.state.search)) { // If the element is present at the middle itself
-                    this.insertNewTerminalString('TRUE')
                     this.insertNewTerminalString(`search found`)
                     return
                 }
