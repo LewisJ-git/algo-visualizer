@@ -31,8 +31,24 @@ button, input, select, textarea {
     font-family: inherit;
     font-size: 0.8rem;
     color: $light-color;
-    background-color: $dark-color;
+    background-color: rgba(22, 22, 22, 0.521);
     letter-spacing: 0.05rem;
+}
+
+button {
+    background-color: rgba(22, 22, 22, 0.521);
+    border: none;
+    border: 3px solid rgb(255, 255, 255);
+    width: 15vw;
+    font-size: 0.8rem;
+    z-index: 1;
+    &:hover {
+        filter: opacity(30%);
+        transition: 0.4s;
+    }
+    &:active {
+        filter: blur(2px);
+    }
 }
 
 .btn:hover {
@@ -46,6 +62,10 @@ input[type=number]::-webkit-outer-spin-button {
     -moz-appearance: none;
     appearance: none;
     margin: 0;
+}
+
+input:focus {
+    box-shadow: 0px 0px 15px 5px rgba(224, 224, 224, 0.753);
 }
 
 @keyframes animStar {
@@ -348,7 +368,7 @@ code {
     width: 100vw;
     height: 100vh;
     position: fixed;
-    z-index: 2;
+    z-index: 8;
     top: 0%;
     left: 0%;
     background: linear-gradient(90deg, rgba(22,22,22,0.92) 0%, rgba(22,22,22,0.92) 100%);
@@ -421,9 +441,8 @@ code {
         line-height: 0.9rem;
         padding: 10px;
         overflow: scroll;
-        //z-index: 12;
         opacity: 1;
-        background-color: #000;
+        background-color: rgba(0, 0, 0, 0.404);
         border: 3px solid #fff;
         animation: 1.9s cubic-bezier(0, 0.7, 0.58, 1.0) 0s 1 slideUpFade;
         .blinkingCursor {
@@ -437,6 +456,16 @@ code {
         #terminal-clear-message {
             color:rgba(224, 224, 224, 0.685);
         }
+        #hidden-message {
+            color:rgba(224, 224, 224, 0);
+        }
+    }
+    #cancelSearchButton {
+        position: fixed;
+        bottom: calc(15% + 5px);
+        right: 25px;
+        z-index: 2;
+        animation: 1.9s ease 0s 1 fadein;
     }
     .inputwrapper {
         z-index: 7;
@@ -470,18 +499,7 @@ code {
             }
         }
         button {
-            background-color: $dark-color;
-            border: none;
-            border: 3px solid rgb(255, 255, 255);
-            width: 15vw;
-            font-size: 0.8rem;
             animation: 1.9s cubic-bezier(0, 0.7, 0.58, 1.0) 0s 1 slideUp;
-            &:hover {
-                filter: brightness(80%);
-            }
-            &:active {
-                filter: blur(2px);
-            }
         }
     }
 }

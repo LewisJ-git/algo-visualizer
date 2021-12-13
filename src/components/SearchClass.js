@@ -14,7 +14,8 @@ class SearchClass extends Component {
             randomInput: '',
             terminalString: `${this.props.searchType}-search> `,
             defaultTerminalName: `${this.props.searchType}-search> `,
-            searchIndex: ''
+            searchIndex: '',
+            stopSearch: false
         }
     }
 
@@ -105,8 +106,9 @@ class SearchClass extends Component {
     }
 
     handleSearchSubmission = (event) => {
-        event.preventDefault();
+        event.preventDefault()
         this.resetSearchIndex()
+        this.changeStopSearch(false)
         if (this.state.array.length > 0) {
             this.insertNewTerminalString(`begin searching for ${this.state.searchInput}`)
             this.setState ({
@@ -147,7 +149,7 @@ class SearchClass extends Component {
 
     resetSearchIndex() {
         this.setState({
-            searchIndex: ''
+            searchIndex: ''        
         })
     }
 
@@ -168,6 +170,11 @@ class SearchClass extends Component {
         var isFound = false
         var index = 0
         var intervalLinear = setInterval(() => {
+            if (this.state.stopSearch) {
+                this.resetSearchIndex()
+                clearInterval(intervalLinear)
+                return
+            }
             if (isFound) {
                 this.insertNewTerminalString('search found')
                 clearInterval(intervalLinear)   //clear interval when element found or index reach the end
@@ -194,6 +201,10 @@ class SearchClass extends Component {
     }
 
     doBinarySearch(left, right, delay) {
+        if (this.state.stopSearch) {
+            this.resetSearchIndex()
+            return
+        }
         setTimeout(() => {
             if (right > 0 && left <= right) {
                 //find middle
@@ -221,15 +232,16 @@ class SearchClass extends Component {
             this.resetSearchIndex()
             return
         }, delay)//delay
+        
     }
 
     submitClear = () => {
         if (this.state.array.length > 0) {
             this.setState({
                 array: [],
-                seacrch: '',
-                searchIndex: ''
+                seacrch: ''            
             })
+            this.handleCancelSearch()
             this.insertNewTerminalString(`array cleared`)
         }
         else {
@@ -309,6 +321,18 @@ ${this.state.defaultTerminalName}`
         this.terminalEndMessage.current.scrollIntoView({ behavior: 'smooth' })
     }
 
+    handleCancelSearch = () => {
+        this.resetSearchIndex()
+        this.changeStopSearch(true)
+        this.insertNewTerminalString('search cancelled')
+    }
+
+    changeStopSearch(boolInsert) {
+        this.setState({
+            stopSearch: boolInsert
+        })
+    }
+
     render() {
         return (
             <div id={this.props.id} className='Search'>
@@ -328,12 +352,13 @@ ${this.state.defaultTerminalName}`
                     </ResponsiveContainer>
                     </div>
                 }
+                <button onClick={this.handleCancelSearch} id='cancelSearchButton'>Cancel Search</button>
                 <div className='terminal'>
                     <div className='text-wrapper'>
-                    
                         <span style={{ whiteSpace: 'pre-wrap' }}>{this.state.terminalString}</span>
                         <div className='blinkingCursor' />
-                        <p id='terminal-clear-message' ref={this.terminalEndMessage}>Press ctrl + c to clear the terminal...</p>
+                        <p id='terminal-clear-message'>Press ctrl + c to clear the terminal...< br/></p>
+                        <p id='hidden-message' ref={this.terminalEndMessage}><br /><br /><br />xxxxxxxxx</p>
                     </div>
                 </div>
                 <div className='inputwrapper col'>
